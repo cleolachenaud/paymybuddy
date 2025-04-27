@@ -1,0 +1,44 @@
+CREATE TABLE users(
+	id INTEGER NOT NULL AUTO_INCREMENT PRIMARY KEY,
+	username VARCHAR(50) NOT NULL UNIQUE,
+	email VARCHAR(250) NOT NULL UNIQUE, 
+	mdp VARCHAR(20) NOT NULL
+);
+
+CREATE TABLE users_link(
+	id INTEGER NOT NULL AUTO_INCREMENT PRIMARY KEY,
+	id_user_sender INTEGER NOT NULL,
+	id_user_reciever INTEGER NOT NULL
+);
+
+ALTER TABLE users_link 
+ADD FOREIGN KEY (id_user_sender) REFERENCES users(id)
+;
+ALTER TABLE users_link 
+ADD FOREIGN KEY (id_user_reciever) REFERENCES users(id)
+;
+
+
+CREATE TABLE transactions(
+	id INTEGER NOT NULL AUTO_INCREMENT PRIMARY KEY,
+	id_user_sender INTEGER NOT NULL,
+	id_user_reciever INTEGER NOT NULL,
+	description VARCHAR(250),
+	montant DECIMAL NOT NULL
+);
+
+ALTER TABLE transactions 
+ADD FOREIGN KEY (id_user_sender) REFERENCES users(id)
+;
+ALTER TABLE transactions 
+ADD FOREIGN KEY (id_user_reciever) REFERENCES users(id)
+;
+
+CREATE TABLE compte(
+	id INTEGER NOT NULL AUTO_INCREMENT PRIMARY KEY,
+	id_user INTEGER NOT NULL,
+	solde DECIMAL NOT NULL
+);
+ALTER TABLE compte 
+ADD FOREIGN KEY (id_user) REFERENCES users(id)
+;
