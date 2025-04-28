@@ -1,26 +1,26 @@
 CREATE TABLE users(
-	id INTEGER NOT NULL AUTO_INCREMENT PRIMARY KEY,
+	id_user INTEGER NOT NULL AUTO_INCREMENT PRIMARY KEY,
 	username VARCHAR(50) NOT NULL UNIQUE,
 	email VARCHAR(250) NOT NULL UNIQUE, 
 	mdp VARCHAR(20) NOT NULL
 );
 
 CREATE TABLE users_link(
-	id INTEGER NOT NULL AUTO_INCREMENT PRIMARY KEY,
+	id_user_link INTEGER NOT NULL AUTO_INCREMENT PRIMARY KEY,
 	id_user_sender INTEGER NOT NULL,
 	id_user_reciever INTEGER NOT NULL
 );
 
 ALTER TABLE users_link 
-ADD FOREIGN KEY (id_user_sender) REFERENCES users(id)
+ADD FOREIGN KEY (id_user_sender) REFERENCES users(id_user)
 ;
 ALTER TABLE users_link 
-ADD FOREIGN KEY (id_user_reciever) REFERENCES users(id)
+ADD FOREIGN KEY (id_user_reciever) REFERENCES users(id_user)
 ;
 
 
 CREATE TABLE transactions(
-	id INTEGER NOT NULL AUTO_INCREMENT PRIMARY KEY,
+	id_transaction INTEGER NOT NULL AUTO_INCREMENT PRIMARY KEY,
 	id_user_sender INTEGER NOT NULL,
 	id_user_reciever INTEGER NOT NULL,
 	description VARCHAR(250),
@@ -28,17 +28,33 @@ CREATE TABLE transactions(
 );
 
 ALTER TABLE transactions 
-ADD FOREIGN KEY (id_user_sender) REFERENCES users(id)
+ADD FOREIGN KEY (id_user_sender) REFERENCES users(id_user)
 ;
 ALTER TABLE transactions 
-ADD FOREIGN KEY (id_user_reciever) REFERENCES users(id)
+ADD FOREIGN KEY (id_user_reciever) REFERENCES users(id_user)
 ;
 
 CREATE TABLE compte(
-	id INTEGER NOT NULL AUTO_INCREMENT PRIMARY KEY,
-	id_user INTEGER NOT NULL,
-	solde DECIMAL NOT NULL
+	id_compte INTEGER NOT NULL AUTO_INCREMENT PRIMARY KEY,
+	id_user_compte INTEGER NOT NULL,
+	solde_compte DECIMAL NOT NULL
 );
 ALTER TABLE compte 
-ADD FOREIGN KEY (id_user) REFERENCES users(id)
+ADD FOREIGN KEY (id_user_compte) REFERENCES users(id_user)
 ;
+
+
+INSERT INTO users (username, email, mdp) VALUES ('Appa', 'appa@email.com', "123rizPaddy");
+INSERT INTO users (username, email, mdp) VALUES ('Moja', 'moja@email.com', "123paddaVis");
+INSERT INTO users (username, email, mdp) VALUES ('Marley', 'marley@email.com', "chenilleForever");
+INSERT INTO users (username, email, mdp) VALUES ('Cookie', 'cookie@email.com', "baronDeLaKet3000");
+
+insert into users_link (id_user_sender, id_user_reciever) values (1, 2);
+insert into users_link (id_user_sender, id_user_reciever) values (3, 4);
+insert into users_link (id_user_sender, id_user_reciever) values (2, 1);
+insert into users_link (id_user_sender, id_user_reciever) values (4, 3);
+
+insert into compte (id_user_compte, solde_compte) values (1, 234.34);
+insert into compte (id_user_compte, solde_compte) values (2, 1234.99);
+insert into compte (id_user_compte, solde_compte) values (3, 4.10);
+insert into compte (id_user_compte, solde_compte) values (4, 99234.78);
