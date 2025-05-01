@@ -2,7 +2,8 @@ CREATE TABLE users(
 	id_user INTEGER NOT NULL AUTO_INCREMENT PRIMARY KEY,
 	username VARCHAR(50) NOT NULL UNIQUE,
 	email VARCHAR(250) NOT NULL UNIQUE, 
-	mdp VARCHAR(20) NOT NULL
+	mdp VARCHAR(20) NOT null,
+	user_role VARCHAR(20) not NULL
 );
 
 CREATE TABLE users_link(
@@ -24,7 +25,7 @@ CREATE TABLE transactions(
 	id_user_sender INTEGER NOT NULL,
 	id_user_reciever INTEGER NOT NULL,
 	description VARCHAR(250),
-	montant DECIMAL NOT NULL
+	montant DECIMAL(15,2) NOT NULL
 );
 
 ALTER TABLE transactions 
@@ -37,17 +38,16 @@ ADD FOREIGN KEY (id_user_reciever) REFERENCES users(id_user)
 CREATE TABLE compte(
 	id_compte INTEGER NOT NULL AUTO_INCREMENT PRIMARY KEY,
 	id_user_compte INTEGER NOT NULL,
-	solde_compte DECIMAL NOT NULL
+	solde_compte DECIMAL (15,2) NOT NULL
 );
 ALTER TABLE compte 
 ADD FOREIGN KEY (id_user_compte) REFERENCES users(id_user)
 ;
 
-
-INSERT INTO users (username, email, mdp) VALUES ('Appa', 'appa@email.com', "123rizPaddy");
-INSERT INTO users (username, email, mdp) VALUES ('Moja', 'moja@email.com', "123paddaVis");
-INSERT INTO users (username, email, mdp) VALUES ('Marley', 'marley@email.com', "chenilleForever");
-INSERT INTO users (username, email, mdp) VALUES ('Cookie', 'cookie@email.com', "baronDeLaKet3000");
+INSERT INTO users (username, email, mdp, user_role) VALUES ('Appa', 'appa@email.com', '123rizPaddy', 'USER');
+INSERT INTO users (username, email, mdp, user_role) VALUES ('Moja', 'moja@email.com', '123paddaVis', 'USER');
+INSERT INTO users (username, email, mdp, user_role) VALUES ('Marley', 'marley@email.com', 'chenilleForever', 'USER');
+INSERT INTO users (username, email, mdp, user_role) VALUES ('Cookie', 'cookie@email.com', 'baronDeLaKet3000', 'USER');
 
 insert into users_link (id_user_sender, id_user_reciever) values (1, 2);
 insert into users_link (id_user_sender, id_user_reciever) values (3, 4);
@@ -58,3 +58,11 @@ insert into compte (id_user_compte, solde_compte) values (1, 234.34);
 insert into compte (id_user_compte, solde_compte) values (2, 1234.99);
 insert into compte (id_user_compte, solde_compte) values (3, 4.10);
 insert into compte (id_user_compte, solde_compte) values (4, 99234.78);
+
+select * from users;
+select * from users_link;
+select * from compte;
+show tables;
+show columns from users;
+show columns from user_link;
+
