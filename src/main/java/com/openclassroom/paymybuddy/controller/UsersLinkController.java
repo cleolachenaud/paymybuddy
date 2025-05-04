@@ -4,30 +4,29 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.openclassroom.paymybuddy.model.Users;
-import com.openclassroom.paymybuddy.service.TransactionsService;
+import com.openclassroom.paymybuddy.service.UsersLinkService;
 
 @RestController
-@RequestMapping("/transactions")
-public class TransactionsController {
+@RequestMapping("/usersLink")
+public class UsersLinkController {
 	
 	@Autowired
-    private TransactionsService transactionService;
+    private UsersLinkService usersLinkService;
 
-    @PostMapping("/send")
-    public ResponseEntity<String> sendMoney(@RequestParam int userSenderId,
-                                            @RequestParam int userReceiverId,
-                                            @RequestParam double montant) {
+    @PutMapping("/addUsersLink")
+    public ResponseEntity<String> addUsersLink(@RequestParam String emailAdd,
+                                               @RequestParam int userSenderId) {
         try {
-            transactionService.transferMoney(userSenderId, userReceiverId, montant);
+        	usersLinkService.addUsersLink(emailAdd, userSenderId);
         } catch (RuntimeException e) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Erreur : " + e.getMessage());
         }
-        return ResponseEntity.ok("Transfert d'argent réussi !");
+        return ResponseEntity.ok("la relation est ajoutée !");
     }
 
 }
