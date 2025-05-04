@@ -4,6 +4,8 @@ import org.springframework.data.repository.CrudRepository;
 
 import com.openclassroom.paymybuddy.model.Transactions;
 
-public interface TransactionsRepository extends CrudRepository<Transactions, Integer> {
+public interface ITransactionsRepository extends CrudRepository<Transactions, Integer> {
+	
+	public Iterable<Transactions> findAllByUser(int userId);
 
 }

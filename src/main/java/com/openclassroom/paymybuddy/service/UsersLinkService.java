@@ -8,13 +8,13 @@ import org.springframework.stereotype.Service;
 import com.openclassroom.paymybuddy.model.Transactions;
 import com.openclassroom.paymybuddy.model.Users;
 import com.openclassroom.paymybuddy.model.UsersLink;
-import com.openclassroom.paymybuddy.repository.UsersLinkRepository;
+import com.openclassroom.paymybuddy.repository.IUsersLinkRepository;
 
 @Service
 public class UsersLinkService {
 
 	@Autowired
-	UsersLinkRepository usersLinkRepository;
+	IUsersLinkRepository usersLinkRepository;
 	
 	public Iterable<UsersLink> getUsers(){
 		return usersLinkRepository.findAll();
@@ -23,13 +23,9 @@ public class UsersLinkService {
 	public Optional<UsersLink> getUsersLinkById(int id) {
 		return usersLinkRepository.findById(id);
 	}
-	
-	public UsersLink saveUsersLink (UsersLink usersLink) {
-		return usersLinkRepository.save(usersLink);
-	}
-	
-	public void deleteUsersLink (UsersLink usersLink) {
-		usersLinkRepository.delete(usersLink);
+	public void addUserLink(Users userSenderId, Users userRecieverId) {
+	    UsersLink relationship = new UsersLink(userSenderId, userRecieverId);
+	    usersLinkRepository.save(relationship);
 	}
 	
 }

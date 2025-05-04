@@ -1,6 +1,5 @@
 package com.openclassroom.paymybuddy.model;
-
-
+import javax.validation.constraints.NotNull;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
@@ -32,7 +31,8 @@ public class Compte {
 	@JoinColumn(name = "id_user_compte")
 	private Users userCompteId;
 	
+	@NotNull
 	@Column(name = "solde_compte")
-	private float soldeCompte;
+	private double soldeCompte;
 	
 }

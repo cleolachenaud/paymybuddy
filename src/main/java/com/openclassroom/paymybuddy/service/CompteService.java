@@ -7,13 +7,13 @@ import org.springframework.stereotype.Service;
 
 import com.openclassroom.paymybuddy.model.Compte;
 import com.openclassroom.paymybuddy.model.Users;
-import com.openclassroom.paymybuddy.repository.CompteRepository;
+import com.openclassroom.paymybuddy.repository.ICompteRepository;
 
 @Service
 public class CompteService {
 	
 	@Autowired
-	CompteRepository compteRepository;
+	ICompteRepository compteRepository;
 	
 	public Iterable<Compte> getComptes(){
 		return compteRepository.findAll();

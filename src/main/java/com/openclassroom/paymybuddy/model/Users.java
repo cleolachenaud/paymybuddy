@@ -2,6 +2,8 @@ package com.openclassroom.paymybuddy.model;
 
 import java.util.List;
 
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotNull;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -20,14 +22,19 @@ public class Users {
 	@Column(name = "id_user")
 	private int userId;
 	
+	@NotNull
 	@Column(name = "username")
 	private String username;
 	
+	@Email
+	@NotNull
 	@Column(name = "email")
 	private String email;
 	
+	@NotNull
 	@Column(name = "mdp")
 	private String mdp;
+	
 	
 	@Column (name = "user_role")
 	private String role;

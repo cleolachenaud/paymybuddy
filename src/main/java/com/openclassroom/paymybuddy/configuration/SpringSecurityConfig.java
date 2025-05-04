@@ -25,10 +25,16 @@ public class SpringSecurityConfig {
 	@Bean
 	public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 	    return http.authorizeHttpRequests(auth -> {
-	        auth.requestMatchers("/admin").hasRole("ADMIN");
+	        //auth.requestMatchers("/admin").hasRole("ADMIN"); // gère le login
 	        auth.requestMatchers("/user").hasRole("USER");
 	        auth.anyRequest().authenticated();
-	    }).formLogin(Customizer.withDefaults()).build();
+	    }).formLogin(Customizer.withDefaults())
+	        .logout(logout -> logout // ici on gère la déconnexion
+	            .logoutUrl("/logout") // URL de déconnexion
+	            .logoutSuccessUrl("/login?logout") // URL de redirection après déconnexion
+	            .invalidateHttpSession(true) // invalider la session HTTP
+	            .deleteCookies("JSESSIONID")) // supprimer les cookies de session
+	        .build();
 	}
   
 

@@ -1,6 +1,8 @@
 package com.openclassroom.paymybuddy.model;
 
 
+import javax.validation.constraints.NotNull;
+
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -43,7 +45,8 @@ public class Transactions {
 	@Column (name = "description")
 	private String description;
 	
+	@NotNull
 	@Column (name = "montant")
-	private int montant;
+	private double montant;
 	
 }

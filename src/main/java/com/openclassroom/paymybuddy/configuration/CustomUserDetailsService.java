@@ -14,7 +14,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.openclassroom.paymybuddy.model.Users;
-import com.openclassroom.paymybuddy.repository.UsersRepository;
+import com.openclassroom.paymybuddy.repository.IUsersRepository;
 
 import org.springframework.security.core.userdetails.UserDetailsService;
 
@@ -22,7 +22,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 public class CustomUserDetailsService implements UserDetailsService{
 
 	@Autowired
-    private UsersRepository usersRepository;
+    private IUsersRepository usersRepository;
 	@Bean
 	public BCryptPasswordEncoder passwordEncoder() {
 	    return new BCryptPasswordEncoder();
@@ -30,13 +30,14 @@ public class CustomUserDetailsService implements UserDetailsService{
 	
 	
 	@Override
-    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        Users user = usersRepository.findByUsername(username);
+    public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
+        Users user = usersRepository.findByEmail(email);
         String bCryptPasswordEncoder = passwordEncoder().encode(user.getMdp());
         return new User(user.getUsername(), bCryptPasswordEncoder, getGrantedAuthorities(user.getRole()));
     }
 
     private List<GrantedAuthority> getGrantedAuthorities(String role) {
+    	role = "user";
         List<GrantedAuthority> authorities = new ArrayList<GrantedAuthority>();
         authorities.add(new SimpleGrantedAuthority("ROLE_" + role));
         return authorities;
