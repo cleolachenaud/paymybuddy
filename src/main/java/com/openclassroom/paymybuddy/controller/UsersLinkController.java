@@ -1,5 +1,7 @@
 package com.openclassroom.paymybuddy.controller;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -15,6 +17,8 @@ import com.openclassroom.paymybuddy.service.UsersLinkService;
 @RequestMapping("/usersLink")
 public class UsersLinkController {
 	
+	private static final Logger logger = LogManager.getLogger("UsersLinkController");
+	
 	@Autowired
     private UsersLinkService usersLinkService;
 
@@ -24,8 +28,10 @@ public class UsersLinkController {
         try {
         	usersLinkService.addUsersLink(emailAdd, userSenderId);
         } catch (RuntimeException e) {
+        	logger.error("la relation n'a pas été ajoutée");
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Erreur : " + e.getMessage());
         }
+        logger.info("la relation est ajoutée");
         return ResponseEntity.ok("la relation est ajoutée !");
     }
 

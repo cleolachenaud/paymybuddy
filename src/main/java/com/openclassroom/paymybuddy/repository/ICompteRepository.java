@@ -11,7 +11,8 @@ import com.openclassroom.paymybuddy.model.Users;
 @Repository
 public interface ICompteRepository extends CrudRepository<Compte, Integer> {
 
-	Optional<Compte> findById(Users userSenderId); 
+	Optional<Compte> findByUserCompteId(Users userCompteId); 
+
 
 	
 

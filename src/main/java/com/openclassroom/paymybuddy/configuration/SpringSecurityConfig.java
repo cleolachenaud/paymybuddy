@@ -1,5 +1,7 @@
 package com.openclassroom.paymybuddy.configuration;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -19,17 +21,22 @@ import org.springframework.security.web.SecurityFilterChain;
 @EnableWebSecurity
 public class SpringSecurityConfig {
 	
+	private static final Logger logger = LogManager.getLogger("SpringSecurityConfig");
+	
 	@Autowired
 	private CustomUserDetailsService customUserDetailsService;
 	
 	@Bean
 	public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 	    return http.authorizeHttpRequests(auth -> {
+	    	logger.debug("login securityFilterChain");
 	        //auth.requestMatchers("/admin").hasRole("ADMIN"); // gère le login
 	        auth.requestMatchers("/user").hasRole("USER");
 	        auth.anyRequest().authenticated();
+	        logger.debug("logout securityFilterChain");
 	    }).formLogin(Customizer.withDefaults())
 	        .logout(logout -> logout // ici on gère la déconnexion
+	        		
 	            .logoutUrl("/logout") // URL de déconnexion
 	            .logoutSuccessUrl("/login?logout") // URL de redirection après déconnexion
 	            .invalidateHttpSession(true) // invalider la session HTTP

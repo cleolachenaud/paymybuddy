@@ -12,6 +12,6 @@ public interface IUsersLinkRepository extends CrudRepository<UsersLink, Integer>
 	
 	boolean existsByUser1AndUser2(Users userSenderId, Users userRecieverId);
 	
-	Optional<UsersLink> findById(Users userSenderId);
+	Optional<UsersLink> findByUserSenderId(Users userSenderId);
 
 }
