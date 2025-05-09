@@ -18,7 +18,7 @@ public class UsersService {
 	IUsersRepository usersRepository;
 	
 	@Autowired
-	private PasswordEncoder passwordEncoder;
+	PasswordEncoder passwordEncoder;
 	
 	@Autowired 
 	ValidationMdp validationMdp;
@@ -56,11 +56,10 @@ public class UsersService {
 	@Transactional
 	public Users updateUser(Users updateUser, int userId) {
 		logger.debug("entrée dans la methode updateUser");
-		Users userExistant = usersRepository.findById(userId);
-		if(userExistant == null) {
-			logger.error("utilisateur non trouvé");
-			throw new IllegalArgumentException("Utilisateur non trouvé");
-		}
+		Users userExistant = usersRepository.findById(userId)
+				.orElseThrow(() -> new RuntimeException("utilisateur inconnu"));
+				logger.error("utilisateur non trouvé");
+
 	    if(!userExistant.getEmail().equals(updateUser.getEmail()) && !updateUser.getEmail().isEmpty()) {
 	    	userExistant.setEmail(updateUser.getEmail());
 	    }

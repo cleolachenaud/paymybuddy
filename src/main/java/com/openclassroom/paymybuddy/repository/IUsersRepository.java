@@ -9,12 +9,10 @@ import com.openclassroom.paymybuddy.model.Users;
 public interface IUsersRepository extends CrudRepository<Users, Integer> {
 	
 	public Users findByEmail (String email);
-	
-	public Users findById(int userId);
-	
+		
 	public Boolean existsByEmail(String email);
 
-	
+	public Optional<Users> findById (int userId);
 	
 
 	

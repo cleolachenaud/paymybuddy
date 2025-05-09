@@ -38,7 +38,8 @@ public class TransactionsService {
 	private static final Logger logger = LogManager.getLogger("TransactionsService");
 	@Transactional
     public List<Transactions> getTransactionsByUser(int userSenderId) {
-    	Users user = usersRepository.findById(userSenderId);
+    	Users user = usersRepository.findById(userSenderId)
+    				.orElseThrow(() -> new RuntimeException("utilisateur inconnu"));
         return transactionsRepository.findAllByUserSender(user);
     }
 	
@@ -46,8 +47,8 @@ public class TransactionsService {
     public void transferMoney(int userSenderId, int userReceiverId, double montantAPayer, String description) {
     	logger.debug("entrée dans la methode transferMoney");
     	// je vérifie que le montant est supérieur à zéro
-        if (montantAPayer < 0) {
-        	logger.error("Le montant doit être supérieur à zéro.");
+        if (montantAPayer <= 0) {
+        	logger.error("Le montant doit être supérieur à zéro."); //TODO fix mettre un msg plus explicite 
             throw new IllegalArgumentException("Le montant doit être supérieur à zéro.");
         }
         if(description == null) {
@@ -55,13 +56,14 @@ public class TransactionsService {
         	throw new IllegalArgumentException("une description est requise");
         }
         // je vérifie que les utilisateurs existent et qu'ils ont bien un compte sur l'application
-        Users userSender = usersRepository.findById(userSenderId);
-        
-        Users userReceiver = usersRepository.findById(userReceiverId);
+        Users userSender = usersRepository.findById(userSenderId)
+			.orElseThrow(() -> new RuntimeException("utilisateur inconnu"));
+        Users userReceiver = usersRepository.findById(userReceiverId)
+			.orElseThrow(() -> new RuntimeException("utilisateur inconnu"));
         Compte sender = compteRepository.findByUserCompteId(userSender)
-            .orElseThrow(() -> new RuntimeException("Utilisateur non trouvé"));
+            .orElseThrow(() -> new RuntimeException("aucun compte débiteur n'est associé à cet utilisateur"));
         Compte receiver = compteRepository.findByUserCompteId(userReceiver)
-            .orElseThrow(() -> new RuntimeException("Destinataire non trouvé"));
+            .orElseThrow(() -> new RuntimeException("aucun compte créditeur n'est associé à cet utilisateur"));
         
         // je vérifie que les utilisateurs sont en relation      
         if (!usersLinkRepository.existsByUser1AndUser2(userSender, userReceiver)) {
