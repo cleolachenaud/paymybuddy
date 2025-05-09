@@ -13,11 +13,10 @@ import java.util.Optional;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.junit.runner.RunWith;
+
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
-import org.mockito.junit.MockitoJUnitRunner;
 import com.openclassroom.paymybuddy.model.Compte;
 import com.openclassroom.paymybuddy.model.Transactions;
 import com.openclassroom.paymybuddy.model.Users;
@@ -27,7 +26,7 @@ import com.openclassroom.paymybuddy.repository.IUsersLinkRepository;
 import com.openclassroom.paymybuddy.repository.IUsersRepository;
 import com.openclassroom.paymybuddy.service.TransactionsService;
 
-@RunWith(MockitoJUnitRunner.class)
+
 public class TransactionsServiceTest {
 	  @InjectMocks
 	    private TransactionsService transactionService; // Classe que je test
@@ -63,7 +62,7 @@ public class TransactionsServiceTest {
         listTransactions.add(1,transaction2);
         // je vérifie que ma méthode retourne bien les transactions avec l'ID 
         when(usersRepository.findById(1)).thenReturn(Optional.of(userSender));
-        when(transactionsRepository.findAllByUserSender(userSender)).thenReturn(listTransactions);
+        when(transactionsRepository.findAllByUserSenderId(userSender)).thenReturn(listTransactions);
         List<Transactions> result = transactionService.getTransactionsByUser(1);
         assertEquals(listTransactions, result);
 	}
@@ -97,7 +96,7 @@ public class TransactionsServiceTest {
         when(usersRepository.findById(2)).thenReturn(Optional.of(userReceiver));
         when(compteRepository.findByUserCompteId(userSender)).thenReturn(Optional.of(senderCompte));
         when(compteRepository.findByUserCompteId(userReceiver)).thenReturn(Optional.of(receiverCompte));
-        when(usersLinkRepository.existsByUser1AndUser2(userSender, userReceiver)).thenReturn(true);
+        when(usersLinkRepository.existsByUserSenderIdAndUserRecieverId(userSender, userReceiver)).thenReturn(true);
         // Appel de la méthode à tester
         transactionService.transferMoney(1, 2, 100, "remboursement");
 
@@ -168,7 +167,7 @@ public class TransactionsServiceTest {
 	        when(usersRepository.findById(2)).thenReturn(Optional.of(userReceiver));
 	        when(compteRepository.findByUserCompteId(userSender)).thenReturn(Optional.of(senderCompte));
 	        when(compteRepository.findByUserCompteId(userReceiver)).thenReturn(Optional.of(receiverCompte));
-	        when(usersLinkRepository.existsByUser1AndUser2(userSender, userReceiver)).thenReturn(isRelation);
+	        when(usersLinkRepository.existsByUserSenderIdAndUserRecieverId(userSender, userReceiver)).thenReturn(isRelation);
 	}
 	private Transactions createTransaction(Users userSender, Users userReciever, int transactionId, double montant, String description ) {
 		Transactions transaction = new Transactions();

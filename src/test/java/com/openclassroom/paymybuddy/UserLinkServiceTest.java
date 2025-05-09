@@ -25,7 +25,7 @@ import com.openclassroom.paymybuddy.service.UsersLinkService;
 import com.openclassroom.paymybuddy.service.UsersService;
 import com.openclassroom.paymybuddy.service.ValidationMdp;
 
-@RunWith(MockitoJUnitRunner.class)
+
 public class UserLinkServiceTest {
 	
 	@Mock

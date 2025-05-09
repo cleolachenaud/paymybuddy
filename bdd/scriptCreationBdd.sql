@@ -48,6 +48,7 @@ INSERT INTO users (username, email, mdp, user_role) VALUES ('Appa', 'appa@email.
 INSERT INTO users (username, email, mdp, user_role) VALUES ('Moja', 'moja@email.com', '123paddaVis', 'USER');
 INSERT INTO users (username, email, mdp, user_role) VALUES ('Marley', 'marley@email.com', 'chenilleForever', 'USER');
 INSERT INTO users (username, email, mdp, user_role) VALUES ('Cookie', 'cookie@email.com', 'baronDeLaKet3000', 'USER');
+INSERT INTO users (username, email, mdp, user_role) VALUES ('root', 'root@jetest.com', 'root', 'USER');
 
 insert into users_link (id_user_sender, id_user_reciever) values (1, 2);
 insert into users_link (id_user_sender, id_user_reciever) values (3, 4);

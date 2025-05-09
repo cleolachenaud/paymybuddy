@@ -30,9 +30,6 @@ public class TransactionsService {
 	ICompteRepository compteRepository;
 	
 	@Autowired
-	Compte compte;
-	
-	@Autowired
 	IUsersLinkRepository usersLinkRepository;
 	
 	private static final Logger logger = LogManager.getLogger("TransactionsService");
@@ -40,7 +37,7 @@ public class TransactionsService {
     public List<Transactions> getTransactionsByUser(int userSenderId) {
     	Users user = usersRepository.findById(userSenderId)
     				.orElseThrow(() -> new RuntimeException("utilisateur inconnu"));
-        return transactionsRepository.findAllByUserSender(user);
+        return transactionsRepository.findAllByUserSenderId(user);
     }
 	
     @Transactional
@@ -66,7 +63,7 @@ public class TransactionsService {
             .orElseThrow(() -> new RuntimeException("aucun compte créditeur n'est associé à cet utilisateur"));
         
         // je vérifie que les utilisateurs sont en relation      
-        if (!usersLinkRepository.existsByUser1AndUser2(userSender, userReceiver)) {
+        if (!usersLinkRepository.existsByUserSenderIdAndUserRecieverId(userSender, userReceiver)) {
         	logger.error("Les utilisateurs ne sont pas en relation");
             throw new RuntimeException("Les utilisateurs ne sont pas en relation.");
         }

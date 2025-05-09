@@ -10,7 +10,7 @@ import com.openclassroom.paymybuddy.model.UsersLink;
 
 public interface IUsersLinkRepository extends CrudRepository<UsersLink, Integer> {
 	
-	boolean existsByUser1AndUser2(Users userSenderId, Users userRecieverId);
+	boolean existsByUserSenderIdAndUserRecieverId(Users userSenderId, Users userRecieverId);
 	
 	Optional<UsersLink> findByUserSenderId(Users userSenderId);
 

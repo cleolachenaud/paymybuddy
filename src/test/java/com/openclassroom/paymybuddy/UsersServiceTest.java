@@ -6,31 +6,23 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
-import java.util.List;
 import java.util.Optional;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.junit.runner.RunWith;
 import org.mockito.ArgumentCaptor;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
-import org.mockito.junit.MockitoJUnitRunner;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.test.context.bean.override.mockito.MockitoBean;
 
 import com.openclassroom.paymybuddy.dto.InscriptionDTO;
-import com.openclassroom.paymybuddy.model.Transactions;
 import com.openclassroom.paymybuddy.model.Users;
 import com.openclassroom.paymybuddy.repository.IUsersRepository;
 import com.openclassroom.paymybuddy.service.UsersService;
 import com.openclassroom.paymybuddy.service.ValidationMdp;
 
 
-@RunWith(MockitoJUnitRunner.class)
 public class UsersServiceTest {
 	@Mock
 	private IUsersRepository usersRepository;
@@ -66,7 +58,7 @@ public class UsersServiceTest {
 	public void testInscriptionUserMotDePasseTropSimple() {
 	    InscriptionDTO inscriptionDTO = new InscriptionDTO();
 	    inscriptionDTO.setEmail("appa@email.com");
-	    inscriptionDTO.setMdp(" "); // Mot de passe vide
+	    inscriptionDTO.setMdp(" "); // Mot de passe 
 	    when(usersRepository.existsByEmail(inscriptionDTO.getEmail())).thenReturn(false);
 	    when(validationMdp.isValidationMdp(inscriptionDTO.getMdp())).thenReturn(false);
 

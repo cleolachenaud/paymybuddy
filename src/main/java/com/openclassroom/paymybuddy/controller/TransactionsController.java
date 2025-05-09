@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.openclassroom.paymybuddy.model.Transactions;
 import com.openclassroom.paymybuddy.model.Users;
+import com.openclassroom.paymybuddy.repository.ITransactionsRepository;
 import com.openclassroom.paymybuddy.service.TransactionsService;
 
 @RestController
@@ -26,7 +27,10 @@ public class TransactionsController {
 	private static final Logger logger = LogManager.getLogger("TransactionsController");
 	
 	@Autowired
-    private TransactionsService transactionService;
+    TransactionsService transactionService;
+	
+	@Autowired
+	ITransactionsRepository transactionRepository;
 	
 
     @PostMapping("/send")
@@ -44,7 +48,7 @@ public class TransactionsController {
         return ResponseEntity.ok("Transfert d'argent réussi !");
         
     }
-    
+    /*
     @GetMapping("/user/{userId}")
     public ResponseEntity <List<Transactions>> getTransactionsByUserId(@RequestParam int userSenderId) {
     	List<Transactions> transactions = new ArrayList();
@@ -57,4 +61,5 @@ public class TransactionsController {
     	logger.info("getTransactions. historique des transactions réussi");
     	return ResponseEntity.ok(transactions);
     	}
+    	*/
 	}

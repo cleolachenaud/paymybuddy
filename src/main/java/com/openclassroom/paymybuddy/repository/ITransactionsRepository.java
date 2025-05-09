@@ -11,7 +11,7 @@ import com.openclassroom.paymybuddy.model.Users;
 
 public interface ITransactionsRepository extends CrudRepository<Transactions, Integer> {
 	
-	List<Transactions> findAllByUserSender(Users userSender);
+	List<Transactions> findAllByUserSenderId(Users userSenderId);
 	
 	Optional<Transactions> findByUserSenderId(Users userSenderId); 
 
