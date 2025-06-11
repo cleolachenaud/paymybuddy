@@ -19,8 +19,6 @@ import org.springframework.stereotype.Service;
 import com.openclassroom.paymybuddy.model.Users;
 import com.openclassroom.paymybuddy.repository.IUsersRepository;
 
-import org.springframework.security.core.userdetails.UserDetailsService;
-
 @Service
 public class CustomUserDetailsService implements UserDetailsService{
 	
@@ -28,6 +26,8 @@ public class CustomUserDetailsService implements UserDetailsService{
 
 	@Autowired
     private IUsersRepository usersRepository;
+	
+	
 	@Bean
 	public BCryptPasswordEncoder passwordEncoder() {
 	    return new BCryptPasswordEncoder();
@@ -38,9 +38,13 @@ public class CustomUserDetailsService implements UserDetailsService{
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
 		logger.debug("entrée dans la méthode loadUserByUsername");
         Users user = usersRepository.findByEmail(email);
-        String bCryptPasswordEncoder = passwordEncoder().encode(user.getMdp());
+        if(user == null) {
+        	  logger.debug("Utilisateur non trouvé : " + email);
+              throw new UsernameNotFoundException("Utilisateur non trouvé : " + email);
+        }
+		String bCryptPasswordEncoder = passwordEncoder().encode(user.getMdp());
         logger.debug("sortie de la méthode loadUserByUsername");
-        return new User(user.getUsername(), bCryptPasswordEncoder, getGrantedAuthorities(user.getRole()));
+        return new User(user.getEmail(), user.getMdp(), getGrantedAuthorities(user.getRole()));        
     }
 
     private List<GrantedAuthority> getGrantedAuthorities(String role) {
@@ -50,9 +54,6 @@ public class CustomUserDetailsService implements UserDetailsService{
         authorities.add(new SimpleGrantedAuthority("ROLE_" + role));
         logger.debug("sortie de la méthode getGrantedAuthorities");
         return authorities;
-    }
-	    
-
-	    
+    }	    
 	
 }

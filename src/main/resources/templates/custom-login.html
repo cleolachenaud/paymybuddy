@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="fr">
+<head>
+	<base href="/">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}" href="../static/css/style.css}">
+</head>
+<body class="connexionInscription">
+ 	<div th:replace="~{fragments/headerConnexionInscription.html}"></div>
+    <!-- Bloc pour les messages de succès et d'erreur -->
+    <div th:if="${errorMessage != null}" class="error-message" th:text="${errorMessage}"></div>
+        
+    <form class="vertical" th:action="@{/custom-login}" th:object="${user}" method="post">
+        <input type="email" id="email" name="username" autocomplete="email" required placeholder="Email"><br><br>
+        <input type="password" id="password" name="password" required placeholder="Mot de passe"><br><br>
+        
+        <button class="button" type="submit">Se connecter</button>
+    </form>
+	<div>
+        <p class="mt-3">Pas encore inscrit ? <a th:href="@{/inscription}"><b>Créez un compte</b></a></p>
+    </div>
+    <!-- Affichage d'un message d'erreur si l'authentification échoue 
+    <c:if test="${error}">
+        <p style="color:red;">Identifiants invalides, veuillez réessayer.</p>
+    </c:if>
+    -->
+  <div th:replace="~{fragments/footer.html}"></div>
+</body>
+</html>

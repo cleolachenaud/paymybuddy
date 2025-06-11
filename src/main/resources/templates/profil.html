@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profil</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}">
+    
+</head>
+<body>
+    <div th:replace="~{fragments/menu.html}"></div>
+    <header> 
+    </header>
+    <main> 
+    <!-- Bloc pour les messages de succès et d'erreur -->
+        <div th:if="${successMessage != null}" class="success-message" th:text="${successMessage}"></div>
+        <div th:if="${errorMessage != null}" class="error-message" th:text="${errorMessage}"></div>
+        
+	    <form class="profilAjoutRelation" th:action="@{/profil}" th:object="${reponse}" method="post">
+			<div>
+		    	<div>
+		    		<label class="titreProfil"> Username </label> 
+		        	<input class="formulaireProfilAjoutRelation" th:field="*{username}" type="text" id="username" name="username" placeholder="@username" >
+		        </div>
+		        <div>
+		        	<label class="titreProfil"> Mail </label>
+		        	<input class="formulaireProfilAjoutRelation" th:field="*{email}"type="text" id="email" name="email" autocomplete="email" placeholder="nom@domaine.com">
+		        </div>
+		        <div>
+		        	<label class="titreProfil"> Mot de passe </label>
+		        	<input class="formulaireProfilAjoutRelation" th:field="*{mdp}"type="text" id="mdp" name="mdp" placeholder="mot de passe">
+		        </div>
+		    </div>
+  			<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+			<div class="buttonOrangePosition">
+	        	<button class="buttonOrange" type="submit">Modifier</button>
+	        </div>
+	    </form>
+	    
+	 	<div th:replace="~{fragments/footer.html}"></div>
+    </main> 
+</body>
+</html>

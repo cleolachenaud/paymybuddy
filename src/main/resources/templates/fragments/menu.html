@@ -1,0 +1,15 @@
+
+ <div class="menu flex_center_lign" th:fragment="my-menu">
+ 	<span class="left" >
+		<a class= "payMyBuddy" th:href="@{/}">
+			Pay my Buddy
+			<span class="filler"/>
+		</a>
+	</span>
+ 	<span class="right" >
+		<a th:href="@{/transactions}" title="transférer de l'argent">Transférer</a>
+		<a th:href="@{/profil}" title="modifier le profil">Profil</a>
+		<a th:href="@{/ajouterRelation}" title="ajouter une relation" >Ajouter relation</a>
+		<a th:href="@{/logout}" title="deconnexion" >Se déconnecter</a>
+	</span>
+ </div>

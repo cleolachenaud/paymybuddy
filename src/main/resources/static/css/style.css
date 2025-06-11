@@ -1,0 +1,252 @@
+
+
+
+body {
+    font-family: 'arial';
+    line-height: 1.5;
+    size : auto;
+   	
+   
+}
+h3 {
+    font-weight: bold;
+}
+
+form {
+	/*margin:center;*/
+    display: flex;
+    flex-direction: line;
+    justify-content:space-between;
+}
+
+label {
+    margin-bottom: 5px;  
+}
+input,
+option,
+select {
+    padding: 15px;
+    margin:3px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-weight: bold;
+    font-family: 'arial';
+    line-height: 1.5;
+    color: #828282; 
+}
+::placeholder {
+	color : #828282;
+}
+
+/* mise en forme des Boutons */
+button {
+    background-color: #207FEE;
+    color: white;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.button:hover {    background-color: #F69F1D;
+}
+
+.buttonOrange {
+    background-color: #F69F1D;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: bold;
+    
+}
+.buttonOrangePosition{
+	display: flex;
+    flex-direction: lign;
+	justify-content: center;
+	align-items: center;
+}
+.buttonOrange:hover {    background-color: #207FEE;
+}
+
+/* Espacement */
+.container {
+    margin: 20px;
+    padding: 20px;
+    justify-content:space-between;
+}
+
+/* mise en forme du menu */
+.menu{
+	margin-top: 50px;
+	margin-bottom: 50px;
+}
+.flex_center_lign{
+    display: flex;
+    flex-direction: lign;
+    justify-content:space-between;
+}
+.filler{
+	display:inline;
+}
+.payMyBuddy{
+	color: #207FEE;
+	font-weight: bold;
+}
+.payMyBuddy.active{
+	color: #207FEE;
+	font-weight: bold;
+	
+}
+.payMyBuddy.hover{
+	color: #F69F1D;
+}
+
+.left{
+	margin-left : 50px;
+	align-content:left;	
+}
+.right{
+	margin-right: 50px;
+	align-content:right;	
+}
+
+a{	
+	text-align: right;
+	margin : 15px;
+	text-decoration:none;
+	color : black;	
+}
+
+/* Lien au survol */
+a:hover, a:active {
+    color: #F69F1D;
+    font-weight: bold;
+  
+}
+
+
+.vertical{
+	padding: 10px 15px;
+	
+    flex-direction: column;
+    justify-content:center;
+}
+td{
+	padding-left : 0px;
+	padding-right : 0px;
+	padding-top : 5px;
+	padding-bottom: 5px;
+	border-bottom: 1px solid #ccc;
+}
+tr{
+	align-content:left;
+}
+th{
+	text-align:left;
+}
+.align-left{
+    align-content:left;
+    text-align:left;
+}
+.align-center{
+    align-content:center;
+ 	margin-left: auto;
+  	margin-right: auto;
+}
+.align-right{
+	text-align:right;
+	align-content:right;
+	padding-right : 0px;
+}
+#transaction_form{
+	margin-left:5%;
+	margin-right:5%;
+	width:90%;
+}
+#div_transaction{
+    align-content:center;
+  	width:90%;
+	margin : 20px 5% 20px 5%;
+	padding: 0px 10px 0px 10px;
+	/*
+	padding: 10px 15px;
+    align-content:center;
+	*/
+	border: 1px solid #ccc;
+    border-radius: 5px;	
+}
+#table_transaction{
+	width:100%;
+	table-layout: fixed;
+}
+
+.symbole_euro{
+	text-align:right;
+	font-weight: bold;
+	color: #828282; 
+}
+
+.connexionInscription{
+	border: 1px solid #000000;
+    border-radius: 1px;
+    padding: 20px 20px 20px 20px;
+    margin-left:auto;
+    margin-right:auto;
+    margin-top:100px;
+  
+    width : 35%;
+    align-content:center;
+    text-align:center;
+}
+.buttonPayMyBuddy{
+	background-color: #F69F1D;
+    color: white;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: bold;
+	
+}
+.buttonPayMyBuddy.hover{
+	color: #207FEE;
+}
+.footer{
+	color: #ccc;
+}
+.profilAjoutRelation{
+	margin-left:auto;
+    margin-right:auto;
+    margin-top:100px;
+    display: flex;
+    flex-direction: line;
+    justify-content:space-between;
+    width : 35%;
+    align-content:center;
+}
+.ajoutRelationWidth{
+	width:150%;
+}
+.titreProfil{
+	width:30%;
+	display:inline-block;
+	text-align:left;
+}
+.titreAjouterRelation{
+	
+	display:inline-block;
+	text-align:left;
+}
+.formulaireProfilAjoutRelation{
+	width:50%;
+	display:inline-block;
+	text-align:left;
+}
+.formulaireAjoutRelation{
+	width:75%;
+	display:inline-block;
+	text-align:left;
+}

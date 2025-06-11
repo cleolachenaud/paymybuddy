@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}">
+</head>
+<body>
+    <h1>Deconnexion</h1>
+	<div>
+        <p class="mt-3">Vous souhaitez vous reconnecter ? <a th:href="@{/custom-login}"><b>cliquez ici</b></a></p>
+    </div>
+ 	<div th:replace="~{fragments/footer.html}"></div>
+</body>
+</html>

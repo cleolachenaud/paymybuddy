@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Transférer de l'argent</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}">
+</head>
+<body>
+    <div th:replace="~{fragments/menu.html}"></div>
+    <header> 
+    </header>
+    <main> 
+       <!-- Bloc pour les messages de succès et d'erreur -->
+        <div th:if="${successMessage != null}" class="success-message" th:text="${successMessage}"></div>
+        <div th:if="${errorMessage != null}" class="error-message" th:text="${errorMessage}"></div>
+        
+        
+	    <form th:action="@{/transactions}" th:object="${reponse}" method="post" id="transaction_form">
+			<select th:field="*{userID}" id="usersLink" name="usersLink" required>		
+		   		<option th:if="${not #lists.isEmpty(listUsersLink)}" value=-1 th:required th:disabled th:selected th:hidden >Sélectionner une relation </option>
+				<option th:if="${#lists.isEmpty(listUsersLink)}" value=-2 th:disabled th:selected>Aucun utilisateur disponible</option>
+		   		<option th:each="usersLink : ${listUsersLink}" 
+		           th:value="${usersLink.userRecieverId.userId}" 
+		           th:text="${usersLink.userRecieverId.username}">
+		        </option>	
+			</select>
+	
+			<input th:field="*{description}" type="text" id="description" name="description" required placeholder="Description">
+			        
+			<span><input class="symbole_euro" th:field="*{montant}" type="number" id="montant" name="montant" step="0.01" required>€</span>
+	
+	        <button type="submit" class = "button">Payer</button>
+	    </form>
+	 	<div id="div_transaction">
+		    <h3>Mes Transactions</h3>
+		    <tr th:if="${transactions.empty}">
+		       <td colspan="3">tu n'as pas encore fait de transactions !</td>
+		    </tr>
+		    <table id="table_transaction">
+		        <thead>
+		             <tr th:if="${!transactions.empty}">
+		                <th>Relation</th>
+		                <th>Description</th>
+		                <th class="align-right">Montant</th>
+		            </tr>
+		        </thead>
+		        <tbody>
+		            <tr th:each="transaction: ${transactions}">
+		                <td class="align-left" th:text="${transaction.userRecieverId.getUsername}"></td>
+		                <td class="align-left" th:text="${transaction.description}"></td>
+		                <td class="align-right" ><span th:text="${transaction.montant}" step="0.01"></span> €</td>
+		            </tr>
+		        </tbody>
+		    </table>
+	    </div>  
+	</main>
+
+  	<div th:replace="~{fragments/footer.html}"></div>
+</body>

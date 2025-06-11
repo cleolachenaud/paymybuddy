@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inscription</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}">
+</head>
+<body class="connexionInscription">
+    <div th:replace="~{fragments/headerConnexionInscription.html}"></div>
+    <form class="vertical" th:action="@{/inscription}" th:object="${inscriptionDTO}" method="post"> 
+        <input th:field="*{username}" type="username" id="username" name="username" required placeholder="Username"><br><br>
+        <input th:field="*{email}" type="email" id="email" name="email" autocomplete="email" required placeholder="Email"><br><br>
+        <input th:field="*{mdp}" type="password" id="mdp" name="mdp" required placeholder="Mot de passe"><br><br>     
+        <button class="button" type="submit">S'inscrire</button>
+    </form>
+
+    	<div>
+        <p class="mt-3">Déjà inscrit <a th:href="@{/custom-login}"><b>Connectez vous ici</b></a></p>
+    </div>
+      <div th:replace="~{fragments/footer.html}"></div>
+</body>
+</html>

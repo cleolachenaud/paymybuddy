@@ -1,6 +1,8 @@
 package com.openclassroom.paymybuddy.service;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 import org.apache.logging.log4j.LogManager;
@@ -9,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.openclassroom.paymybuddy.dto.TransactionsDTO;
 import com.openclassroom.paymybuddy.model.Compte;
 import com.openclassroom.paymybuddy.model.Transactions;
 import com.openclassroom.paymybuddy.model.Users;
@@ -37,7 +40,10 @@ public class TransactionsService {
     public List<Transactions> getTransactionsByUser(int userSenderId) {
     	Users user = usersRepository.findById(userSenderId)
     				.orElseThrow(() -> new RuntimeException("utilisateur inconnu"));
-        return transactionsRepository.findAllByUserSenderId(user);
+             
+		return transactionsRepository.findAllByUserSenderId(user);
+        
+        
     }
 	
     @Transactional

@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="fr">
+<head>
+	<meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Ajouter une relation</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}">
+</head>
+<body>
+ 	<div th:replace="fragments/menu.html"></div>
+ 	  <header>
+       
+    </header>
+    
+     <!-- Bloc pour les messages de succès et d'erreur -->
+        <div th:if="${successMessage != null}" class="success-message" th:text="${successMessage}"></div>
+        <div th:if="${errorMessage != null}" class="error-message" th:text="${errorMessage}"></div>
+        
+	<form class="profilAjoutRelation" th:action="@{/ajouterRelation}" th:object="${reponse}" method="post">
+		<div class="ajoutRelationWidth">
+			<label class="titreAjouterRelation" for="email">Chercher une relation</label><br/>
+            <input class="formulaireAjoutRelation" th:field="*{email}"type="string" id="email" name="email" required placeholder ="Saisir une adresse mail">  
+	    </div>
+	    <div class="buttonOrangePosition">
+			<button class="buttonOrange" type="submit">Ajouter</button>
+		</div>
+   </form>
+   <div th:replace="fragments/footer.html"></div>
+</body>
+</html>

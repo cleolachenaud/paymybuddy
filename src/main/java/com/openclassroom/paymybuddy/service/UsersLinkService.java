@@ -1,5 +1,9 @@
 package com.openclassroom.paymybuddy.service;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
+
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,6 +23,8 @@ public class UsersLinkService {
 
 	@Autowired
 	IUsersRepository usersRepository;
+	
+	
 
 	private static final Logger logger = LogManager.getLogger("UsersLinkService");
 	@Transactional
@@ -43,4 +49,11 @@ public class UsersLinkService {
 		logger.info("fin de la méthode addUsersLink");
 	}
 
+	public List<UsersLink> getUsersLink (int userSenderId){
+		logger.info("début de la méthode getUsersLink");
+		Users userSender = usersRepository.findById(userSenderId)
+				.orElseThrow(() -> new RuntimeException("utilisateur inconnu"));
+		return usersLinkRepository.findAllByUserSenderId(userSender);
+		
+	}
 }

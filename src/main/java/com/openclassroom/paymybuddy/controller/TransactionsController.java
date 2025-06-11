@@ -8,19 +8,30 @@ import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.openclassroom.paymybuddy.dto.TransactionsDTO;
 import com.openclassroom.paymybuddy.model.Transactions;
 import com.openclassroom.paymybuddy.model.Users;
+import com.openclassroom.paymybuddy.model.UsersLink;
 import com.openclassroom.paymybuddy.repository.ITransactionsRepository;
 import com.openclassroom.paymybuddy.service.TransactionsService;
+import com.openclassroom.paymybuddy.service.UsersLinkService;
+import com.openclassroom.paymybuddy.service.UsersService;
 
-@RestController
+import jakarta.servlet.http.HttpSession;
+
+@Controller
 @RequestMapping("/transactions")
 public class TransactionsController {
 	
@@ -31,35 +42,40 @@ public class TransactionsController {
 	
 	@Autowired
 	ITransactionsRepository transactionRepository;
-	
 
-    @PostMapping("/send")
-    public ResponseEntity<String> transferMoney(@RequestParam int userSenderId,
-                                            @RequestParam int userReceiverId,
-                                            @RequestParam double montant,
-                                            @RequestParam String description) {
+	@Autowired
+	UsersLinkService userLinkService;
+	@Autowired
+	UsersService usersService;
+    
+    @GetMapping("") // <== seconde partie de l'URL
+	public String getUserLink(Model model) {
+		logger.info("@GetMapping getUserLink");
+		
+		List<UsersLink> listUsersLink = userLinkService.getUsersLink(usersService.getAuthenticatedUser().getUserId());
+		logger.info("liste des relations"+ listUsersLink.toString());
+		model.addAttribute("listUsersLink",listUsersLink);
+		
+		Iterable<Transactions> listTransactions = transactionService.getTransactionsByUser(usersService.getAuthenticatedUser().getUserId());
+		model.addAttribute("transactions", listTransactions);
+		
+		model.addAttribute("reponse", new TransactionsDTO());
+      
+		return "transactions"; // <== fichier .html à charger
+	}
+    
+
+    @PostMapping(value="")
+    public String transferMoney(@ModelAttribute("reponse") TransactionsDTO reponse, Model model,  RedirectAttributes redirectAttributes) {
         try {
-            transactionService.transferMoney(userSenderId, userReceiverId, montant, description);
+            transactionService.transferMoney(usersService.getAuthenticatedUser().getUserId(), reponse.getUserID(), reponse.getMontant(), reponse.getDescription());
         } catch (RuntimeException e) {
         	logger.error("transferMoney. Transfert d'argent n'a pas abouti");
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Erreur : " + e.getMessage());
+            redirectAttributes.addFlashAttribute("errorMessage", "Erreur : " + e.getMessage());
+            return "redirect:/transaction"; // Redirection en cas d'erreur
         }
         logger.info("transferMoney. Transfert d'argent réussi");
-        return ResponseEntity.ok("Transfert d'argent réussi !");
-        
+        redirectAttributes.addFlashAttribute("successMessage", "Transaction réussie !"); 
+        return "redirect:/transactions"; // Redirection après succès  
     }
-    /*
-    @GetMapping("/user/{userId}")
-    public ResponseEntity <List<Transactions>> getTransactionsByUserId(@RequestParam int userSenderId) {
-    	List<Transactions> transactions = new ArrayList();
-    	try {
-    		transactions = transactionService.getTransactionsByUser(userSenderId);
-    	} catch (RuntimeException e) {
-    		logger.error("getTransaction. affichage de l historique n'a pas abouti");
-    		return ResponseEntity.notFound().build();
-    	}
-    	logger.info("getTransactions. historique des transactions réussi");
-    	return ResponseEntity.ok(transactions);
-    	}
-    	*/
-	}
+}

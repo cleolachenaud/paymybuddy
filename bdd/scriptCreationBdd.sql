@@ -2,7 +2,7 @@ CREATE TABLE users(
 	id_user INTEGER NOT NULL AUTO_INCREMENT PRIMARY KEY,
 	username VARCHAR(50) NOT NULL UNIQUE,
 	email VARCHAR(250) NOT NULL UNIQUE, 
-	mdp VARCHAR(20) NOT null,
+	mdp VARCHAR(250) NOT null,
 	user_role VARCHAR(20) not NULL
 );
 
@@ -60,10 +60,10 @@ insert into compte (id_user_compte, solde_compte) values (2, 1234.99);
 insert into compte (id_user_compte, solde_compte) values (3, 4.10);
 insert into compte (id_user_compte, solde_compte) values (4, 99234.78);
 
+select * from transactions;
 select * from users;
 select * from users_link;
 select * from compte;
 show tables;
 show columns from users;
 show columns from user_link;
-

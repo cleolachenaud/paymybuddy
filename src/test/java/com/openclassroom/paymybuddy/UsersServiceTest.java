@@ -74,7 +74,7 @@ public class UsersServiceTest {
 	    InscriptionDTO inscriptionDTO = new InscriptionDTO();
 	    inscriptionDTO.setEmail("appa@email.com");
 	    inscriptionDTO.setMdp("123RizPaddy");
-	    inscriptionDTO.setUserName("Appa");
+	    inscriptionDTO.setUsername("Appa");
 	    
 	    when(usersRepository.existsByEmail(inscriptionDTO.getEmail())).thenReturn(false);
 	    when(validationMdp.isValidationMdp(inscriptionDTO.getMdp())).thenReturn(true);
