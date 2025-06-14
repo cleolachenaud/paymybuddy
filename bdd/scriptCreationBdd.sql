@@ -29,7 +29,7 @@ CREATE TABLE transactions(
 );
 
 ALTER TABLE transactions 
-ADD FOREIGN KEY (id_user_sender) REFERENCES users(id_user)
+ADD FOREIGN KEY (id_user_sender) REFERENCES usersh3(id_user)
 ;
 ALTER TABLE transactions 
 ADD FOREIGN KEY (id_user_reciever) REFERENCES users(id_user)

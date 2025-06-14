@@ -1,9 +1,6 @@
 package com.openclassroom.paymybuddy.service;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
-import java.util.Optional;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -11,7 +8,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.openclassroom.paymybuddy.dto.TransactionsDTO;
 import com.openclassroom.paymybuddy.model.Compte;
 import com.openclassroom.paymybuddy.model.Transactions;
 import com.openclassroom.paymybuddy.model.Users;
@@ -42,8 +38,6 @@ public class TransactionsService {
     				.orElseThrow(() -> new RuntimeException("utilisateur inconnu"));
              
 		return transactionsRepository.findAllByUserSenderId(user);
-        
-        
     }
 	
     @Transactional
@@ -51,7 +45,7 @@ public class TransactionsService {
     	logger.debug("entrée dans la methode transferMoney");
     	// je vérifie que le montant est supérieur à zéro
         if (montantAPayer <= 0) {
-        	logger.error("Le montant doit être supérieur à zéro."); //TODO fix mettre un msg plus explicite 
+        	logger.error("Le montant doit être supérieur à zéro."); 
             throw new IllegalArgumentException("Le montant doit être supérieur à zéro.");
         }
         if(description == null) {

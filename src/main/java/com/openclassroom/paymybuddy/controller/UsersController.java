@@ -62,11 +62,9 @@ public class UsersController {
 	    user.setUsername(reponse.getUsername());
         logger.info("Id = " + id);
         logger.info("User = " + user.toString());
-
-	    Users userUpdate;
 	    
 	    try {
-	        userUpdate = usersService.updateUser(user, id);
+	        usersService.updateUser(user, id);
 	    } catch (RuntimeException e) {
 	        logger.error("updateUser. mise a jour non effectuée pour l'utilisateur ID: " + id);
 	        redirectAttributes.addFlashAttribute("errorMessage", "mise à jour non effectuée");

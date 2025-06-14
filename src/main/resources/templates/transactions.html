@@ -8,11 +8,9 @@
 </head>
 <body>
     <div th:replace="~{fragments/menu.html}"></div>
-    <header> 
-    </header>
-    <main> 
-       <!-- Bloc pour les messages de succès et d'erreur -->
-        <div th:if="${successMessage != null}" class="success-message" th:text="${successMessage}"></div>
+    <main>
+       	<!-- Bloc pour les messages de succès et d'erreur -->
+    	<div th:if="${successMessage != null}" class="success-message" th:text="${successMessage}"></div>
         <div th:if="${errorMessage != null}" class="error-message" th:text="${errorMessage}"></div>
         
         
@@ -34,16 +32,16 @@
 	    </form>
 	 	<div id="div_transaction">
 		    <h3>Mes Transactions</h3>
-		    <tr th:if="${transactions.empty}">
-		       <td colspan="3">tu n'as pas encore fait de transactions !</td>
-		    </tr>
 		    <table id="table_transaction">
 		        <thead>
-		             <tr th:if="${!transactions.empty}">
-		                <th>Relation</th>
-		                <th>Description</th>
-		                <th class="align-right">Montant</th>
-		            </tr>
+				    <tr th:if="${transactions.empty}">
+				    	<td colspan="3">tu n'as pas encore fait de transactions !</td>
+				    </tr>
+					<tr th:if="${!transactions.empty}">
+					    <th>Relation</th>
+					    <th>Description</th>
+					    <th class="align-right">Montant</th>
+					</tr>
 		        </thead>
 		        <tbody>
 		            <tr th:each="transaction: ${transactions}">

@@ -13,7 +13,4 @@ public interface ICompteRepository extends CrudRepository<Compte, Integer> {
 
 	Optional<Compte> findByUserCompteId(Users userCompteId); 
 
-
-	
-
 }

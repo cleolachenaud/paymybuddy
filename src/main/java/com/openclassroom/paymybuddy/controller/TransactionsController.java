@@ -1,35 +1,25 @@
 package com.openclassroom.paymybuddy.controller;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.openclassroom.paymybuddy.dto.TransactionsDTO;
 import com.openclassroom.paymybuddy.model.Transactions;
-import com.openclassroom.paymybuddy.model.Users;
 import com.openclassroom.paymybuddy.model.UsersLink;
 import com.openclassroom.paymybuddy.repository.ITransactionsRepository;
 import com.openclassroom.paymybuddy.service.TransactionsService;
 import com.openclassroom.paymybuddy.service.UsersLinkService;
 import com.openclassroom.paymybuddy.service.UsersService;
-
-import jakarta.servlet.http.HttpSession;
 
 @Controller
 @RequestMapping("/transactions")

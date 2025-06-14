@@ -42,7 +42,6 @@ public class CustomUserDetailsService implements UserDetailsService{
         	  logger.debug("Utilisateur non trouvé : " + email);
               throw new UsernameNotFoundException("Utilisateur non trouvé : " + email);
         }
-		String bCryptPasswordEncoder = passwordEncoder().encode(user.getMdp());
         logger.debug("sortie de la méthode loadUserByUsername");
         return new User(user.getEmail(), user.getMdp(), getGrantedAuthorities(user.getRole()));        
     }

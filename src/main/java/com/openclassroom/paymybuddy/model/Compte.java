@@ -22,8 +22,7 @@ public class Compte {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "id_compte")
 	private int compteId;
-	
-	//TODO a voir si on fait en sorte que le compte supprime le user ou non 
+	 
 	@OneToOne(
 	cascade = CascadeType.ALL, //toutes les actions sur l'entité Users seront propagées sur l'entité Compte
 	orphanRemoval = true, // pas de Compte orphelin de son User
