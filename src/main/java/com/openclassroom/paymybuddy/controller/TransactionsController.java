@@ -62,7 +62,7 @@ public class TransactionsController {
         } catch (RuntimeException e) {
         	logger.error("transferMoney. Transfert d'argent n'a pas abouti");
             redirectAttributes.addFlashAttribute("errorMessage", "Erreur : " + e.getMessage());
-            return "redirect:/transaction"; // Redirection en cas d'erreur
+            return "redirect:/transactions"; // Redirection en cas d'erreur
         }
         logger.info("transferMoney. Transfert d'argent réussi");
         redirectAttributes.addFlashAttribute("successMessage", "Transaction réussie !"); 
